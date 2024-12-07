@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 
-const LanguageResponse: FC = () => {
+const LanguageButton: FC = () => {
     const { i18n } = useTranslation();
 
     const handleChangeLanguage = (lang: string) => {
@@ -9,7 +9,7 @@ const LanguageResponse: FC = () => {
     };
 
     return (
-        <div className="relative flex items-center flex-initial pr-2">
+        <div className="relative flex items-center flex-initial p-1 border border-white">
             <button onClick={() => handleChangeLanguage('th')}>
                 TH
             </button>
@@ -21,4 +21,4 @@ const LanguageResponse: FC = () => {
     );
 };
 
-export default LanguageResponse;
+export default LanguageButton;
