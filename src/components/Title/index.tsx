@@ -13,17 +13,18 @@ const Title: FC<TitleProps> = ({ children, level, className, ml, mr }) => {
 
   switch (level) {
     case 1:
-      return <span className={clsx(customClass, "text-xs")}>{children}</span>;
+      return <h1 className={clsx(customClass, "text-2xl")}>{children}</h1>;
     case 2:
-      return <span className={clsx(customClass, "text-sm")}>{children}</span>;
+      return <h2 className={clsx(customClass, "text-xl")}>{children}</h2>;
     case 3:
-      return <span className={clsx(customClass, "text-base")}>{children}</span>;
+      return <h3 className={clsx(customClass, "text-lg")}>{children}</h3>;
     case 4:
-      return <span className={clsx(customClass, "text-lg")}>{children}</span>;
+      return <h4 className={clsx(customClass, "text-base")}>{children}</h4>;
     case 5:
-      return <span className={clsx(customClass, "text-xl")}>{children}</span>;
+      return <h5 className={clsx(customClass, "text-sm")}>{children}</h5>;
     case 6:
-      return <span className={clsx(customClass, "text-2xl")}>{children}</span>;
+      return <h6 className={clsx(customClass, "text-xs")}>{children}</h6>;
+
     default:
       return <>{children}</>;
   }
