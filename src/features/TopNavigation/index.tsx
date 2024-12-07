@@ -6,7 +6,7 @@ import LanguageButton from "@/components/Button/LanguageButton";
 
 const TopNavigation: FC = () => {
   return (
-    <div className="h-14 w-full flex bg-core-black-300 text-white items-center px-3 justify-between">
+    <div className="h-14 w-full flex items-center px-3 justify-between">
       <div className="flex items-center">
         <Image
           src="/imgs/to-do-list-icon.png"

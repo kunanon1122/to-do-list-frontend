@@ -10,6 +10,7 @@ export default {
         core: {
           white: {
             100: "#fff",
+            200: "#b6c2cf",
           },
           black: {
             100: "#000",
