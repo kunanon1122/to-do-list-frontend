@@ -9,7 +9,12 @@ export type TitleProps = {
 } & PropsWithChildren;
 
 const Title: FC<TitleProps> = ({ children, level, className, ml, mr }) => {
-  const customClass = clsx(className, "font-bold", ml && "ml-2", mr && "mr-2");
+  const customClass = clsx(
+    className,
+    "font-bold break-words",
+    ml && "ml-2",
+    mr && "mr-2"
+  );
 
   switch (level) {
     case 1:
