@@ -1,3 +1,8 @@
+export interface BoardColumn {
+  title: string;
+  step: string;
+}
+
 export interface ItemsCardDetail {
   title: string;
   priority: string;

@@ -3,7 +3,7 @@ import React, { FC } from "react";
 import Title from "@/components/Title";
 import CardItem from "@/features/Board/CardItem";
 
-import { ItemsCardDetail } from "@/@/constant/board";
+import { ItemsCardDetail } from "@/constant/board";
 
 interface CardColumnProps {
   title: string;
