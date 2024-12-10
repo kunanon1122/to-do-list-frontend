@@ -1,8 +1,8 @@
 import { Provider } from "react-redux";
-import { store } from "@/redux/store";
 import { appWithI18Next } from "ni18n";
 import { ni18nConfig } from "@/@/ni18n.config";
 
+import { store } from "@/redux/store";
 import TopNavigation from "@/features/TopNavigation";
 
 import type { AppProps } from "next/app";

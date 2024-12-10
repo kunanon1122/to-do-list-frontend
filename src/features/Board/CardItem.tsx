@@ -2,7 +2,7 @@ import React, { FC } from "react";
 
 import SubTitle from "@/components/SubTitle";
 
-import { ItemsCardDetail } from "@/@/constant/board";
+import { ItemsCardDetail } from "@/constant/board";
 
 interface CardItemProps {
   item: ItemsCardDetail;
