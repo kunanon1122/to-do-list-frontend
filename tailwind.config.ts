@@ -20,6 +20,7 @@ export default {
           },
           gray: {
             100: "#6B778C",
+            200: "#9fadbc",
           },
           red: {
             100: "#FF0000",
