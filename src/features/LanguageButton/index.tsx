@@ -12,7 +12,11 @@ const LanguageButton: FC = () => {
     i18n.changeLanguage(changeLanguage);
   };
 
-  return <Button onClick={handleChangeLanguage}>TH / EN</Button>;
+  return (
+    <Button theme="blue" onClick={handleChangeLanguage}>
+      TH / EN
+    </Button>
+  );
 };
 
 export default LanguageButton;
