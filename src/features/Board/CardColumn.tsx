@@ -1,4 +1,5 @@
-import React, { FC, useState } from "react";
+import React, { FC, useCallback, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 import Title from "@/components/Title";
 import Button from "@/components/Button";
@@ -7,8 +8,12 @@ import Modal from "@/components/Modal";
 
 import CardItem from "@/features/Board/CardItem";
 
+import {
+  useDeleteBoardColumnMutation,
+  useLazyGetBoardColumnsQuery,
+} from "@/services/columnApi";
+
 import { ItemsCardDetail } from "@/constant/board";
-import { useTranslation } from "react-i18next";
 
 interface CardColumnProps {
   id: number;
@@ -69,6 +74,9 @@ const CardColumn: FC<CardColumnProps> = ({ id, title, step }) => {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
+  const [deleteBoardColumn, { isLoading }] = useDeleteBoardColumnMutation();
+  const [fetchBoardColumns] = useLazyGetBoardColumnsQuery();
+
   const handleCloseMenu = () => setAnchorEl(null);
   const handleCloseModal = () => setIsOpenModal(false);
 
@@ -81,11 +89,16 @@ const CardColumn: FC<CardColumnProps> = ({ id, title, step }) => {
     setIsOpenModal(true);
   };
 
-  const handleDelete = () => {
-    console.log("ind--", id);
-
-    handleCloseModal();
-  };
+  const handleDelete = useCallback(async () => {
+    try {
+      await deleteBoardColumn(id).unwrap();
+      fetchBoardColumns();
+    } catch (error) {
+      console.error(`Failed to delete column ${id}:`, error);
+    } finally {
+      handleCloseModal();
+    }
+  }, [id, deleteBoardColumn, fetchBoardColumns]);
 
   return (
     <div className="w-64 py-3 px-2 bg-core-black-200 rounded-md min-h-[calc(100vh-10rem)]">
@@ -130,10 +143,16 @@ const CardColumn: FC<CardColumnProps> = ({ id, title, step }) => {
               className="w-20 h-8 mr-2"
               theme="primary"
               onClick={handleCloseModal}
+              disabled={isLoading}
             >
               {tCommon("cancel")}
             </Button>
-            <Button className="w-20 h-8" theme="danger" onClick={handleDelete}>
+            <Button
+              className="w-20 h-8"
+              theme="danger"
+              onClick={handleDelete}
+              disabled={isLoading}
+            >
               {tCommon("delete")}
             </Button>
           </div>
