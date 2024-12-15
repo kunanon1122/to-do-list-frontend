@@ -2,8 +2,8 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 import { HOST_API } from "@/variables/API";
 
-import type { BoardColumn } from "@/constant/board";
 import { ReposeAPI } from "@/constant/common";
+import type { BoardColumn } from "@/constant/board";
 
 export const boardColumnsApi = createApi({
   reducerPath: "boardColumnsApi",
@@ -24,7 +24,18 @@ export const boardColumnsApi = createApi({
         },
       }),
     }),
+    deleteBoardColumn: builder.mutation<ReposeAPI, number>({
+      query: (id) => ({
+        url: `/api/column/delete-column/${id}`,
+        method: "DELETE",
+      }),
+    }),
   }),
 });
 
-export const { useGetBoardColumnsQuery, usePostCreateBoardColumnMutation } = boardColumnsApi;
+export const {
+  useGetBoardColumnsQuery,
+  useLazyGetBoardColumnsQuery,
+  usePostCreateBoardColumnMutation,
+  useDeleteBoardColumnMutation,
+} = boardColumnsApi;

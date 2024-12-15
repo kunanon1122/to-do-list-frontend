@@ -12,10 +12,7 @@ import {
 
 const Board = () => {
   const { data, refetch } = useGetBoardColumnsQuery();
-  const [
-    postCreateBoardColumn,
-    // { isLoading, isSuccess, isError }
-  ] = usePostCreateBoardColumnMutation();
+  const [postCreateBoardColumn] = usePostCreateBoardColumnMutation();
 
   const [openAddColumn, setOpenAddColumn] = useState(false);
   const [titleValue, setTitleValue] = useState("");
