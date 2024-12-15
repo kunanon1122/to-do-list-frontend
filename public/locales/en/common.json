@@ -1,3 +1,5 @@
 {
-    "hello": "Hello world"
+  "hello": "Hello world",
+  "delete": "Delete",
+  "cancel": "Cancel"
 }

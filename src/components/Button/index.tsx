@@ -3,8 +3,8 @@ import clsx from "clsx";
 
 export type ButtonProps = {
   className?: string;
-  onClick: () => void;
-  theme?: "primary" | "secondary" | "invisible" | "blue";
+  onClick: React.MouseEventHandler<HTMLButtonElement>
+  theme?: "primary" | "secondary" | "invisible" | "blue" | "danger";
 } & PropsWithChildren;
 
 const Button: FC<ButtonProps> = ({
@@ -20,6 +20,7 @@ const Button: FC<ButtonProps> = ({
       "bg-core-black-400 text-core-white-200 hover:bg-core-white-200 hover:text-core-black-400",
     invisible: "bg-core-black-200 text-core-gray-200 hover:bg-core-black-400",
     blue: "bg-core-blue-100 text-core-blue-200 hover:bg-core-blue-200 hover:text-core-blue-100",
+    danger: "text-core-black-200 bg-core-red-300 hover:bg-core-red-200",
   };
 
   return (

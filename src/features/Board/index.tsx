@@ -23,12 +23,7 @@ const Board = () => {
   const boardColumns = useMemo(() => {
     if (!data) return [];
 
-    const dataColumns = data?.map((column) => ({
-      title: column.title,
-      step: column.step,
-    }));
-
-    return dataColumns;
+    return data;
   }, [data]);
 
   const handleOpenAddColumn = () => setOpenAddColumn(true);
@@ -49,7 +44,11 @@ const Board = () => {
     <div className="flex gap-3 mt-3 overflow-x-auto">
       {boardColumns.map((boardColumn, index) => (
         <div key={index}>
-          <CardColumn title={boardColumn.title} step={boardColumn.step} />
+          <CardColumn
+            id={boardColumn.id}
+            title={boardColumn.title}
+            step={boardColumn.step}
+          />
         </div>
       ))}
       {openAddColumn ? (
