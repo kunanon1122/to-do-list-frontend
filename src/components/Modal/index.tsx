@@ -1,30 +1,30 @@
 import React, { FC, PropsWithChildren } from "react";
-import { Modal } from "@mui/material";
+import { Modal as ModalMui } from "@mui/material";
 import clsx from "clsx";
 
-export type ButtonProps = {
+export type ModalProps = {
   className?: string;
-  handleClose: () => void;
+  onClose?: () => void;
   open: boolean;
 } & PropsWithChildren;
 
-const Button: FC<ButtonProps> = ({
-  children,
-  open,
-  handleClose,
-  className,
-}) => {
+const Modal: FC<ModalProps> = ({ children, open, onClose, className }) => {
   return (
-    <Modal
+    <ModalMui
       open={open}
-      onClose={handleClose}
+      onClose={onClose}
       className="flex items-center justify-center"
     >
-      <div className={clsx("bg-core-gray-100 w-[80vw] md:w-[50vw] p-3 rounded-sm", className)}>
+      <div
+        className={clsx(
+          className,
+          "bg-core-black-200 px-3 py-5 rounded w-[70vw] md:w-[35vw]"
+        )}
+      >
         {children}
       </div>
-    </Modal>
+    </ModalMui>
   );
 };
 
-export default Button;
+export default Modal;
