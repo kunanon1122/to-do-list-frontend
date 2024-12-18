@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useState } from "react";
+import React, { FC, useCallback, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import Title from "@/components/Title";
@@ -7,13 +7,15 @@ import Menu from "@/components/Menu";
 import Modal from "@/components/Modal";
 
 import CardItem from "@/features/Board/CardItem";
+import CreateCardButton from "@/features/CreateCardButton";
 
 import {
   useDeleteBoardColumnMutation,
   useLazyGetBoardColumnsQuery,
 } from "@/services/columnApi";
+import { useGetBoardCardsQuery } from "@/services/cardApi";
 
-import { ItemsCardDetail } from "@/constant/board";
+import { Translations } from "@/variables/API";
 
 interface CardColumnProps {
   id: number;
@@ -22,54 +24,16 @@ interface CardColumnProps {
 }
 
 const CardColumn: FC<CardColumnProps> = ({ id, title, step }) => {
-  const items: ItemsCardDetail[] = [
-    {
-      title: "Create tooltip",
-      priority: "Hight",
-      id: "ID-3225",
-      step: "to-do",
-      tag: "Feature",
-      create_date: "",
-      update_date: "",
-    },
-    {
-      title: "Fix bug at searchbox",
-      priority: "Hight",
-      id: "ID-2225",
-      step: "in-progress",
-      tag: "Bug",
-      create_date: "",
-      update_date: "",
-    },
-    {
-      title: "Fix bug at home page",
-      priority: "Hight",
-      id: "ID-2325",
-      step: "to-do",
-      tag: "Bug",
-      create_date: "",
-      update_date: "",
-    },
-    {
-      title: "Change text",
-      priority: "Medium",
-      id: "ID-2238",
-      step: "to-do",
-      create_date: "",
-      update_date: "",
-    },
-    {
-      title: "Change padding button",
-      priority: "Low",
-      id: "ID-4567",
-      step: "to-do",
-      create_date: "",
-      update_date: "",
-    },
-  ];
+  const { t: tCommon } = useTranslation(Translations.common);
+  const { t } = useTranslation(Translations.cardColumn);
 
-  const { t: tCommon } = useTranslation("common");
-  const { t } = useTranslation("card_column");
+  const { data, refetch } = useGetBoardCardsQuery();
+
+  const boardCards = useMemo(() => {
+    if (!data) return [];
+
+    return data;
+  }, [data]);
 
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -124,14 +88,15 @@ const CardColumn: FC<CardColumnProps> = ({ id, title, step }) => {
           />
         </div>
       </div>
-      {items.map((item, index) => {
-        if (item.step !== step) return null;
+      {boardCards.map((card, index) => {
+        if (card.step !== step) return null;
         return (
           <div key={index}>
-            <CardItem item={item} />
+            <CardItem item={card} />
           </div>
         );
       })}
+      <CreateCardButton stepCard={step} refetchCards={refetch} />
 
       <Modal open={isOpenModal}>
         <div>

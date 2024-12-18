@@ -9,9 +9,9 @@ export interface BoardColumn {
 export interface ItemsCardDetail {
   id: string;
   title: string;
-  priority: string;
   step: string;
   tag?: string;
+  priority?: string;
   create_date: string;
   update_date: string;
 }
