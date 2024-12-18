@@ -3,14 +3,19 @@ import { setupListeners } from "@reduxjs/toolkit/query";
 import counterReducer from "@/redux/reducers/counterSlice";
 
 import { boardColumnsApi } from "@/services/columnApi";
+import { cardApi } from "@/services/cardApi";
 
 export const store = configureStore({
   reducer: {
     counter: counterReducer,
     [boardColumnsApi.reducerPath]: boardColumnsApi.reducer,
+    [cardApi.reducerPath]: cardApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(boardColumnsApi.middleware),
+    getDefaultMiddleware().concat([
+      boardColumnsApi.middleware,
+      cardApi.middleware,
+    ]),
 });
 
 setupListeners(store.dispatch);

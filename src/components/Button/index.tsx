@@ -3,9 +3,10 @@ import clsx from "clsx";
 
 export type ButtonProps = {
   className?: string;
-  onClick: React.MouseEventHandler<HTMLButtonElement>;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
   theme?: "primary" | "secondary" | "invisible" | "blue" | "danger";
   disabled?: boolean;
+  type?: "button" | "submit" | "reset";
 } & PropsWithChildren;
 
 const Button: FC<ButtonProps> = ({
@@ -14,6 +15,7 @@ const Button: FC<ButtonProps> = ({
   onClick,
   disabled,
   theme = "primary",
+  type = "button",
 }) => {
   const themeClasses = {
     primary:
@@ -34,6 +36,7 @@ const Button: FC<ButtonProps> = ({
       )}
       onClick={onClick}
       disabled={disabled}
+      type={type}
     >
       {children}
     </button>
