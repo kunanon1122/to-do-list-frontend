@@ -65,9 +65,9 @@ const CardColumn: FC<CardColumnProps> = ({ id, title, step }) => {
   }, [id, deleteBoardColumn, fetchBoardColumns]);
 
   return (
-    <div className="w-64 py-3 px-2 bg-core-black-200 rounded-md min-h-[calc(100vh-10rem)]">
+    <div className="w-64 py-3 px-2 bg-core-black-200 rounded-md h-full min-h-[calc(100vh-10rem)]">
       <div className="flex justify-between items-center mb-3">
-        <Title level={5} ml className="">
+        <Title level={5} ml>
           {title}
         </Title>
         <div>
