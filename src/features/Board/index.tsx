@@ -1,4 +1,8 @@
-import React, { useCallback, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
+import { setBoardColumn } from "@/redux/reducers/boardColumnSlice";
+import { RootState } from "@/redux/store";
 
 import CardColumn from "@/features/Board/CardColumn";
 
@@ -11,17 +15,14 @@ import {
 } from "@/services/columnApi";
 
 const Board = () => {
+  const dispatch = useDispatch();
+  const boardColumns = useSelector((state: RootState) => state.board.columns);
+
   const { data, refetch } = useGetBoardColumnsQuery();
   const [postCreateBoardColumn] = usePostCreateBoardColumnMutation();
 
   const [openAddColumn, setOpenAddColumn] = useState(false);
   const [titleValue, setTitleValue] = useState("");
-
-  const boardColumns = useMemo(() => {
-    if (!data) return [];
-
-    return data;
-  }, [data]);
 
   const handleOpenAddColumn = () => setOpenAddColumn(true);
   const handleCloseAddColumn = () => setOpenAddColumn(false);
@@ -36,6 +37,12 @@ const Board = () => {
       handleCloseAddColumn();
     }
   }, [postCreateBoardColumn, titleValue, refetch]);
+
+  useEffect(() => {
+    if (data) {
+      dispatch(setBoardColumn(data));
+    }
+  }, [data, dispatch]);
 
   return (
     <div className="flex gap-3 mt-3 overflow-x-auto">
