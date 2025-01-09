@@ -3,5 +3,8 @@
     "placeholder": {
       "title": "Title for this card..."
     }
-  }
+  },
+  "more_detail": "More detail",
+  "move_to": "Move to",
+  "delete": "Delete"
 }

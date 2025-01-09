@@ -1,21 +1,18 @@
-import React, { FC, useCallback, useMemo, useState } from "react";
+import React, { FC, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import Title from "@/components/Title";
 import Button from "@/components/Button";
 import Menu from "@/components/Menu";
-import Modal from "@/components/Modal";
 
 import CardItem from "@/features/Board/CardItem";
 import CreateCardButton from "@/features/CreateCardButton";
 
-import {
-  useDeleteBoardColumnMutation,
-  useLazyGetBoardColumnsQuery,
-} from "@/services/columnApi";
 import { useGetBoardCardsQuery } from "@/services/cardApi";
 
 import { Translations } from "@/variables/API";
+
+import ModalDeleteColumn from "@/features/Board/ModalDeleteColumn";
 
 interface CardColumnProps {
   id: number;
@@ -24,7 +21,6 @@ interface CardColumnProps {
 }
 
 const CardColumn: FC<CardColumnProps> = ({ id, title, step }) => {
-  const { t: tCommon } = useTranslation(Translations.common);
   const { t } = useTranslation(Translations.cardColumn);
 
   const { data, refetch } = useGetBoardCardsQuery();
@@ -38,9 +34,6 @@ const CardColumn: FC<CardColumnProps> = ({ id, title, step }) => {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
-  const [deleteBoardColumn, { isLoading }] = useDeleteBoardColumnMutation();
-  const [fetchBoardColumns] = useLazyGetBoardColumnsQuery();
-
   const handleCloseMenu = () => setAnchorEl(null);
   const handleCloseModal = () => setIsOpenModal(false);
 
@@ -48,21 +41,10 @@ const CardColumn: FC<CardColumnProps> = ({ id, title, step }) => {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleOpenModal = () => {
+  const handleOpenModalDelCol = () => {
     handleCloseMenu();
     setIsOpenModal(true);
   };
-
-  const handleDelete = useCallback(async () => {
-    try {
-      await deleteBoardColumn(id).unwrap();
-      fetchBoardColumns();
-    } catch (error) {
-      console.error(`Failed to delete column ${id}:`, error);
-    } finally {
-      handleCloseModal();
-    }
-  }, [id, deleteBoardColumn, fetchBoardColumns]);
 
   return (
     <div className="w-64 py-3 px-2 bg-core-black-200 rounded-md h-full min-h-[calc(100vh-10rem)]">
@@ -83,7 +65,12 @@ const CardColumn: FC<CardColumnProps> = ({ id, title, step }) => {
             anchorEl={anchorEl}
             onClose={handleCloseMenu}
             menuList={[
-              { key: "1", label: t("menu.delete"), onClick: handleOpenModal },
+              {
+                key: "1",
+                label: t("menu.delete"),
+                onClick: handleOpenModalDelCol,
+                icon: <span>🗑️</span>,
+              },
             ]}
           />
         </div>
@@ -92,37 +79,17 @@ const CardColumn: FC<CardColumnProps> = ({ id, title, step }) => {
         if (card.step !== step) return null;
         return (
           <div key={index}>
-            <CardItem item={card} />
+            <CardItem cardItem={card} />
           </div>
         );
       })}
       <CreateCardButton stepCard={step} refetchCards={refetch} />
 
-      <Modal open={isOpenModal}>
-        <div>
-          <Title level={4} className="mb-4">
-            {t("modal.delete.title")}
-          </Title>
-          <div className="flex justify-end">
-            <Button
-              className="w-20 h-8 mr-2"
-              theme="primary"
-              onClick={handleCloseModal}
-              disabled={isLoading}
-            >
-              {tCommon("cancel")}
-            </Button>
-            <Button
-              className="w-20 h-8"
-              theme="danger"
-              onClick={handleDelete}
-              disabled={isLoading}
-            >
-              {tCommon("delete")}
-            </Button>
-          </div>
-        </div>
-      </Modal>
+      <ModalDeleteColumn
+        isOpen={isOpenModal}
+        handleClose={handleCloseModal}
+        columnID={id}
+      />
     </div>
   );
 };
