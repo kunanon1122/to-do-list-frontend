@@ -113,8 +113,8 @@ const CardItem: FC<CardItemProps> = ({ cardItem, refetchCards }) => {
 
       <Modal open={isOpenModal}>
         <div>
-          <div>More Card Detail...</div>{" "}
-          <button className="border" onClick={handleCloseModal}>
+          <div>More Card Detail Coming Soon...</div>{" "}
+          <button className="border border-gray-400 mt-3 p-1 rounded" onClick={handleCloseModal}>
             Close
           </button>
         </div>
