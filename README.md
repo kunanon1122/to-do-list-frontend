@@ -1,8 +1,48 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/pages/api-reference/create-next-app).
+# To-Do List Frontend
+
+This is a modern and responsive To-Do List application built with cutting-edge technologies to provide a seamless user experience. The project is bootstrapped with [Next.js](https://nextjs.org) and leverages a variety of powerful tools and libraries to ensure high performance and maintainability.
+
+## Technologies Used
+
+- **Next.js**: A React framework for server-side rendering and generating static websites.
+- **React**: A JavaScript library for building user interfaces.
+- **Redux Toolkit**: A powerful state management library for JavaScript apps.
+- **TypeScript**: A statically typed superset of JavaScript that enhances code quality and developer productivity.
+- **Tailwind CSS**: A utility-first CSS framework for rapid UI development.
+- **MUI (Material-UI)**: A popular React UI framework that provides a set of components implementing Google's Material Design.
+- **Formik**: A library for building forms in React with ease.
+- **Yup**: A JavaScript schema builder for value parsing and validation.
+- **i18next**: An internationalization framework for JavaScript.
+- **ESLint**: A tool for identifying and fixing problems in JavaScript code.
+- **PostCSS**: A tool for transforming CSS with JavaScript plugins.
+
+## Features
+
+- **API Integration**: This project seamlessly integrates with the backend project available at https://github.com/kunanon1122/to-do-list-backend for dynamic data fetching and updating, including:
+
+  - **Get Board Columns**: Fetch all columns of the board.
+  - **Get All Cards**: Fetch all cards within the board.
+  - **Move Cards**: Move cards between columns.
+  - **Edit and Delete**: Edit and delete columns and cards.
+
+- **Responsive Design**: The application is fully responsive and works seamlessly on all devices.
+- **State Management**: Efficient state management with Redux Toolkit.
+- **Type Safety**: Enhanced code quality and maintainability with TypeScript.
+- **Form Handling**: Easy and efficient form handling with Formik and Yup.
+- **Internationalization**: Support for multiple languages with i18next.
+- **Linting and Formatting**: Code quality ensured with ESLint and Prettier.
 
 ## Getting Started
 
-First, run the development server:
+First, clone the repository and install the dependencies:
+
+```bash
+git clone https://github.com/kunanon1122/to-do-list-frontend.git
+cd to-do-list-frontend
+npm install
+```
+
+Then, run the development server:
 
 ```bash
 npm run dev
@@ -16,25 +56,12 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+## Contact
 
-[API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+If you are impressed with this project and would like to contact me, please reach out at:
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) instead of React pages.
+- **Email**: non.somkham@gmail.com
+- **LinkedIn**: https://www.linkedin.com/in/kunanon-somkham-571984198
+- **GitHub**: https://github.com/kunanon1122
 
-This project uses [`next/font`](https://nextjs.org/docs/pages/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn-pages-router) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/pages/building-your-application/deploying) for more details.
+Thank you for considering my project. I look forward to collaborating with you!
