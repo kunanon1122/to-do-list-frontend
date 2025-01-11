@@ -7,7 +7,7 @@ export interface BoardColumn {
 }
 
 export interface ItemsCardDetail {
-  id: string;
+  id: number;
   title: string;
   step: string;
   tag?: string;

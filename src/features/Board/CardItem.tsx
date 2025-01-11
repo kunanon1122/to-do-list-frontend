@@ -11,6 +11,8 @@ import Modal from "@/components/Modal";
 import Button from "@/components/Button";
 import Menu from "@/components/Menu";
 
+import ModalDelete from "@/features/Board/ModalDelete";
+
 import { ItemsCardDetail } from "@/constant/board";
 
 import { Translations } from "@/variables/API";
@@ -27,21 +29,18 @@ const CardItem: FC<CardItemProps> = ({ cardItem, refetchCards }) => {
   const [putUpdateStepCard] = usePutUpdateStepCardMutation();
 
   const [isOpenModal, setIsOpenModal] = useState(false);
+  const [isOpenModalDelete, setIsOpenModalDelete] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
-  const handleCloseMenu = () => setAnchorEl(null);
-
+  const handleOpenModal = () => setIsOpenModal(true);
+  const handleOpenModalDelete = () => setIsOpenModalDelete(true);
   const handleOpenMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleCloseModal = () => {
-    setIsOpenModal(false);
-  };
-
-  const handleOpenModal = () => {
-    setIsOpenModal(true);
-  };
+  const handleCloseModal = () => setIsOpenModal(false);
+  const handleCloseModalDelete = () => setIsOpenModalDelete(false);
+  const handleCloseMenu = () => setAnchorEl(null);
 
   const handleMoveCard = useCallback(
     async (step: string) => {
@@ -93,7 +92,7 @@ const CardItem: FC<CardItemProps> = ({ cardItem, refetchCards }) => {
             {
               key: "3",
               label: t("delete"),
-              onClick: () => console.log("delete"),
+              onClick: handleOpenModalDelete,
               icon: <span>🗑️</span>,
             },
           ]}
@@ -120,6 +119,13 @@ const CardItem: FC<CardItemProps> = ({ cardItem, refetchCards }) => {
           </button>
         </div>
       </Modal>
+
+      <ModalDelete
+        isOpen={isOpenModalDelete}
+        handleClose={handleCloseModalDelete}
+        id={cardItem.id}
+        type="card"
+      />
     </div>
   );
 };

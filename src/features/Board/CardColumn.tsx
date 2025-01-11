@@ -7,12 +7,12 @@ import Menu from "@/components/Menu";
 
 import CardItem from "@/features/Board/CardItem";
 import CreateCardButton from "@/features/CreateCardButton";
+import ModalDelete from "@/features/Board/ModalDelete";
 
 import { useGetBoardCardsQuery } from "@/services/cardApi";
 
 import { Translations } from "@/variables/API";
 
-import ModalDeleteColumn from "@/features/Board/ModalDeleteColumn";
 
 interface CardColumnProps {
   id: number;
@@ -85,10 +85,11 @@ const CardColumn: FC<CardColumnProps> = ({ id, title, step }) => {
       })}
       <CreateCardButton stepCard={step} refetchCards={refetch} />
 
-      <ModalDeleteColumn
+      <ModalDelete
         isOpen={isOpenModal}
         handleClose={handleCloseModal}
-        columnID={id}
+        id={id}
+        type="column"
       />
     </div>
   );
