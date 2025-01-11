@@ -28,6 +28,28 @@ export const cardApi = createApi({
         },
       }),
     }),
+    putUpdateStepCard: builder.mutation<
+      ReposeAPI,
+      { cardID: number; step: string }
+    >({
+      query: ({ cardID, step }) => ({
+        url: "/api/card/update-step-card",
+        method: "PUT",
+        body: {
+          id: cardID,
+          step: step,
+        },
+      }),
+    }),
+    deleteCard: builder.mutation<ReposeAPI, number>({
+      query: (id) => ({
+        url: "/api/card/delete-card",
+        method: "DELETE",
+        body: {
+          id,
+        },
+      }),
+    }),
   }),
 });
 
@@ -35,4 +57,6 @@ export const {
   useGetBoardCardsQuery,
   useLazyGetBoardCardsQuery,
   usePostCreateBoardCardMutation,
+  usePutUpdateStepCardMutation,
+  useDeleteCardMutation,
 } = cardApi;

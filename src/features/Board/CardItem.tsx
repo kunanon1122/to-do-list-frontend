@@ -1,52 +1,63 @@
-import React, { FC, useState } from "react";
+import React, { FC, useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
 
 import { RootState } from "@/redux/store";
+
+import { usePutUpdateStepCardMutation } from "@/services/cardApi";
 
 import SubTitle from "@/components/SubTitle";
 import Modal from "@/components/Modal";
 import Button from "@/components/Button";
 import Menu from "@/components/Menu";
 
+import ModalDelete from "@/features/Board/ModalDelete";
+
 import { ItemsCardDetail } from "@/constant/board";
 
 import { Translations } from "@/variables/API";
-import { useSelector } from "react-redux";
 
 interface CardItemProps {
   cardItem: ItemsCardDetail;
+  refetchCards: () => void;
 }
 
-const CardItem: FC<CardItemProps> = ({ cardItem }) => {
+const CardItem: FC<CardItemProps> = ({ cardItem, refetchCards }) => {
   const { t } = useTranslation(Translations.cardItem);
 
   const boardColumns = useSelector((state: RootState) => state.board.columns);
+  const [putUpdateStepCard] = usePutUpdateStepCardMutation();
 
   const [isOpenModal, setIsOpenModal] = useState(false);
-
+  const [isOpenModalDelete, setIsOpenModalDelete] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
-  const handleCloseMenu = () => setAnchorEl(null);
-
+  const handleOpenModal = () => setIsOpenModal(true);
+  const handleOpenModalDelete = () => setIsOpenModalDelete(true);
   const handleOpenMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleCloseModal = () => {
-    setIsOpenModal(false);
-  };
+  const handleCloseModal = () => setIsOpenModal(false);
+  const handleCloseModalDelete = () => setIsOpenModalDelete(false);
+  const handleCloseMenu = () => setAnchorEl(null);
 
-  const handleOpenModal = () => {
-    setIsOpenModal(true);
-  };
+  const handleMoveCard = useCallback(
+    async (step: string) => {
+      const cardID = cardItem.id;
 
-  const handleMoveCard = (columnID: number) => {
-    const cardID = cardItem.id;
+      try {
+        await putUpdateStepCard({ cardID, step }).unwrap();
 
-    handleCloseMenu();
-
-    console.log(`move ${cardID} to ${columnID}`);
-  };
+        refetchCards();
+      } catch (error) {
+        console.error("Failed to move card:", error);
+      } finally {
+        handleCloseMenu();
+      }
+    },
+    [cardItem.id, putUpdateStepCard, refetchCards]
+  );
 
   return (
     <div className="w-full flex flex-col min-h-24 px-2 py-3 justify-between bg-core-black-400 rounded-sm mb-1">
@@ -69,17 +80,19 @@ const CardItem: FC<CardItemProps> = ({ cardItem }) => {
               key: "2",
               label: t("move_to"),
               onClick: () => console.log("move_to"),
-              submenu: boardColumns.map((column) => ({
-                key: `${column.step}-${column.create_date.toString()}`,
-                label: column.title,
-                onClick: () => handleMoveCard(column.id),
-              })),
+              submenu: boardColumns
+                .filter((column) => column.step !== cardItem.step)
+                .map((column) => ({
+                  key: `${column.step}-${column.create_date.toString()}`,
+                  label: column.title,
+                  onClick: () => handleMoveCard(column.step),
+                })),
               icon: <span className="ml-2">🚀</span>,
             },
             {
               key: "3",
               label: t("delete"),
-              onClick: () => console.log("delete"),
+              onClick: handleOpenModalDelete,
               icon: <span>🗑️</span>,
             },
           ]}
@@ -106,6 +119,13 @@ const CardItem: FC<CardItemProps> = ({ cardItem }) => {
           </button>
         </div>
       </Modal>
+
+      <ModalDelete
+        isOpen={isOpenModalDelete}
+        handleClose={handleCloseModalDelete}
+        id={cardItem.id}
+        type="card"
+      />
     </div>
   );
 };

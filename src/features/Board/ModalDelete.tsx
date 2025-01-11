@@ -11,40 +11,70 @@ import {
   useDeleteBoardColumnMutation,
   useLazyGetBoardColumnsQuery,
 } from "@/services/columnApi";
+import {
+  useDeleteCardMutation,
+  useLazyGetBoardCardsQuery,
+} from "@/services/cardApi";
 
-interface ModalDeleteColumnProps {
+interface ModalDeleteProps {
   isOpen: boolean;
   handleClose: () => void;
-  columnID: number;
+  id: number;
+  type: "column" | "card";
 }
 
-const ModalDeleteColumn: React.FC<ModalDeleteColumnProps> = ({
+const ModalDelete: React.FC<ModalDeleteProps> = ({
   isOpen,
   handleClose,
-  columnID,
+  id,
+  type,
 }) => {
   const { t } = useTranslation(Translations.cardColumn);
+  const { t: tCard } = useTranslation(Translations.cardItem);
   const { t: tCommon } = useTranslation(Translations.common);
 
   const [deleteBoardColumn, { isLoading }] = useDeleteBoardColumnMutation();
+  const [deleteCard] = useDeleteCardMutation();
   const [fetchBoardColumns] = useLazyGetBoardColumnsQuery();
+  const [fetchBoardCards] = useLazyGetBoardCardsQuery();
 
   const handleDelete = useCallback(async () => {
-    try {
-      await deleteBoardColumn(columnID).unwrap();
-      fetchBoardColumns();
-    } catch (error) {
-      console.error(`Failed to delete column ${columnID}:`, error);
-    } finally {
-      handleClose();
+    if (type === "column") {
+      try {
+        await deleteBoardColumn(id).unwrap();
+        fetchBoardColumns();
+      } catch (error) {
+        console.error(`Failed to delete column ${id}:`, error);
+      } finally {
+        handleClose();
+      }
+    } else {
+      try {
+        await deleteCard(id).unwrap();
+        fetchBoardCards();
+      } catch (error) {
+        console.error(`Failed to delete card ${id}:`, error);
+      } finally {
+        handleClose();
+      }
     }
-  }, [deleteBoardColumn, columnID, fetchBoardColumns, handleClose]);
+  }, [
+    type,
+    deleteBoardColumn,
+    id,
+    fetchBoardColumns,
+    handleClose,
+    deleteCard,
+    fetchBoardCards,
+  ]);
 
   return (
     <Modal open={isOpen}>
       <div>
         <Title level={4} className="mb-4">
-          {t("modal.delete.title")}
+          {type === "column"
+            ? t("modal.delete.title")
+            : tCard("modal.delete.title")}
         </Title>
         <div className="flex justify-end">
           <Button
@@ -69,4 +99,4 @@ const ModalDeleteColumn: React.FC<ModalDeleteColumnProps> = ({
   );
 };
 
-export default ModalDeleteColumn;
+export default ModalDelete;
