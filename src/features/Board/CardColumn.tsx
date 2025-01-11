@@ -79,7 +79,7 @@ const CardColumn: FC<CardColumnProps> = ({ id, title, step }) => {
         if (card.step !== step) return null;
         return (
           <div key={index}>
-            <CardItem cardItem={card} />
+            <CardItem cardItem={card} refetchCards={refetch} />
           </div>
         );
       })}
