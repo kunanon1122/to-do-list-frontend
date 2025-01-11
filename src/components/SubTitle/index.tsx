@@ -22,22 +22,42 @@ const SubTitle: FC<SubTitleProps> = ({
     "break-words",
     ml && "ml-2",
     mr && "mr-2",
-    bold && 'font-bold'
+    bold && "font-bold"
   );
 
   switch (level) {
     case 1:
-      return <div className={clsx(customClass, "text-2xl")}>{children}</div>;
+      return (
+        <div className={clsx(customClass, "text-lg md:text-xl lg:text-2xl")}>
+          {children}
+        </div>
+      );
     case 2:
-      return <div className={clsx(customClass, "text-xl")}>{children}</div>;
+      return (
+        <div className={clsx(customClass, "text-base md:text-lg lg:text-xl")}>
+          {children}
+        </div>
+      );
     case 3:
-      return <div className={clsx(customClass, "text-lg")}>{children}</div>;
+      return (
+        <div className={clsx(customClass, "text-sm md:text-base lg:text-lg")}>
+          {children}
+        </div>
+      );
     case 4:
-      return <div className={clsx(customClass, "text-base")}>{children}</div>;
+      return (
+        <div className={clsx(customClass, "text-sm md:text-base")}>
+          {children}
+        </div>
+      );
     case 5:
-      return <div className={clsx(customClass, "text-sm")}>{children}</div>;
+      return (
+        <div className={clsx(customClass, "text-sm lg:text-base")}>
+          {children}
+        </div>
+      );
     case 6:
-      return <div className={clsx(customClass, "text-xs")}>{children}</div>;
+      return <div className={clsx(customClass, "text-sm")}>{children}</div>;
 
     default:
       return <>{children}</>;

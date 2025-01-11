@@ -11,7 +11,7 @@ const TopNavigation: FC = () => {
   const { t } = useTranslation(Translations.common);
 
   return (
-    <div className="h-14 w-full flex items-center px-3 justify-between border-b border-core-gray-100">
+    <div className="h-14 w-full flex items-center px-2 md:px-3 justify-between border-b border-core-gray-100">
       <div className="flex items-center">
         <Image
           src="/imgs/to-do-list-icon.png"
@@ -20,7 +20,7 @@ const TopNavigation: FC = () => {
           width={30}
         />
         <Title level={3} ml>
-          To-do List {t("hello")}
+          To-do List <span className="hidden md:inline">{t("hello")}</span>
         </Title>
       </div>
       <div>
