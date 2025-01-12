@@ -43,11 +43,11 @@ const Title: FC<TitleProps> = ({ children, level, className, ml, mr }) => {
       );
     case 5:
       return (
-        <h5 className={clsx(customClass, "text-xs  lg:text-sm")}>{children}</h5>
+        <h5 className={clsx(customClass, "text-xs lg:text-sm")}>{children}</h5>
       );
     case 6:
       return (
-        <h6 className={clsx(customClass, "text-xs md:text-xs ")}>{children}</h6>
+        <h6 className={clsx(customClass, "text-xs")}>{children}</h6>
       );
 
     default:

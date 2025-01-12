@@ -18,13 +18,21 @@ const Button: FC<ButtonProps> = ({
   type = "button",
 }) => {
   const themeClasses = {
-    primary:
-      "bg-core-black-200 text-core-gray-200 hover:bg-core-gray-100 hover:text-core-black-200",
-    secondary:
-      "bg-core-black-400 text-core-white-200 hover:bg-core-white-200 hover:text-core-black-400",
-    invisible: "bg-core-black-200 text-core-gray-200 hover:bg-core-black-400",
-    blue: "bg-core-blue-100 text-core-blue-200 hover:bg-core-blue-200 hover:text-core-blue-100",
-    danger: "text-core-black-200 bg-core-red-300 hover:bg-core-red-200",
+    primary: `bg-core-black-200 text-core-gray-200 ${
+      !disabled && "hover:bg-core-gray-100 hover:text-core-black-200"
+    }`,
+    secondary: `bg-core-black-400 text-core-white-200 ${
+      !disabled && "hover:bg-core-white-200 hover:text-core-black-400"
+    }`,
+    invisible: `bg-core-black-200 text-core-gray-200 ${
+      !disabled && "hover:bg-core-black-400"
+    }`,
+    blue: `bg-core-blue-100 text-core-blue-200 ${
+      !disabled && "hover:bg-core-blue-200 hover:text-core-blue-100"
+    }`,
+    danger: `text-core-black-200 bg-core-red-300 ${
+      !disabled && "hover:bg-core-red-200"
+    }`,
   };
 
   return (
@@ -32,7 +40,7 @@ const Button: FC<ButtonProps> = ({
       className={clsx(
         className,
         themeClasses[theme],
-        "flex items-center p-1 rounded-sm justify-center transition-colors"
+        "flex items-center p-1 rounded-sm justify-center transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
       )}
       onClick={onClick}
       disabled={disabled}

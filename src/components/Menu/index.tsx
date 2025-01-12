@@ -5,7 +5,7 @@ import { NestedMenuItem } from "mui-nested-menu";
 export interface MenuItemProps {
   key: string;
   label: string;
-  onClick: () => void;
+  onClick?: () => void;
   icon?: React.ReactNode;
 }
 

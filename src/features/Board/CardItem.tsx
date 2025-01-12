@@ -7,11 +7,11 @@ import { RootState } from "@/redux/store";
 import { usePutUpdateStepCardMutation } from "@/services/cardApi";
 
 import SubTitle from "@/components/SubTitle";
-import Modal from "@/components/Modal";
 import Button from "@/components/Button";
 import Menu from "@/components/Menu";
 
 import ModalDelete from "@/features/Board/ModalDelete";
+import ModalCardDetail from "@/features/Board/ModalCardDetail";
 
 import { ItemsCardDetail } from "@/constant/board";
 
@@ -32,8 +32,14 @@ const CardItem: FC<CardItemProps> = ({ cardItem, refetchCards }) => {
   const [isOpenModalDelete, setIsOpenModalDelete] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
-  const handleOpenModal = () => setIsOpenModal(true);
-  const handleOpenModalDelete = () => setIsOpenModalDelete(true);
+  const handleOpenModal = () => {
+    handleCloseMenu();
+    setIsOpenModal(true);
+  };
+  const handleOpenModalDelete = () => {
+    handleCloseMenu();
+    setIsOpenModalDelete(true);
+  };
   const handleOpenMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
@@ -79,7 +85,6 @@ const CardItem: FC<CardItemProps> = ({ cardItem, refetchCards }) => {
             {
               key: "2",
               label: t("move_to"),
-              onClick: () => console.log("move_to"),
               submenu: boardColumns
                 .filter((column) => column.step !== cardItem.step)
                 .map((column) => ({
@@ -111,14 +116,11 @@ const CardItem: FC<CardItemProps> = ({ cardItem, refetchCards }) => {
         <SubTitle level={6}>{cardItem.priority}</SubTitle>
       </div>
 
-      <Modal open={isOpenModal}>
-        <div>
-          <div>More Card Detail Coming Soon...</div>{" "}
-          <button className="border border-gray-400 mt-3 p-1 rounded" onClick={handleCloseModal}>
-            Close
-          </button>
-        </div>
-      </Modal>
+      <ModalCardDetail
+        isOpen={isOpenModal}
+        handleClose={handleCloseModal}
+        id={cardItem.id}
+      />
 
       <ModalDelete
         isOpen={isOpenModalDelete}
