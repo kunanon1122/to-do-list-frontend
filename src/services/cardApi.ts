@@ -15,6 +15,14 @@ export const cardApi = createApi({
         method: "GET",
       }),
     }),
+
+    getCardDetail: builder.query<ItemsCardDetail, number>({
+      query: (id) => ({
+        url: `/api/card/${id}`,
+        method: "GET",
+      }),
+    }),
+
     postCreateBoardCard: builder.mutation<
       ReposeAPI,
       { title: string; step: string }
@@ -28,6 +36,21 @@ export const cardApi = createApi({
         },
       }),
     }),
+
+    putUpdateDescriptionCard: builder.mutation<
+      ReposeAPI,
+      { cardID: number; description: string }
+    >({
+      query: ({ cardID, description }) => ({
+        url: "/api/card/update-card-description",
+        method: "PUT",
+        body: {
+          id: cardID,
+          description: description,
+        },
+      }),
+    }),
+
     putUpdateStepCard: builder.mutation<
       ReposeAPI,
       { cardID: number; step: string }
@@ -41,6 +64,7 @@ export const cardApi = createApi({
         },
       }),
     }),
+
     deleteCard: builder.mutation<ReposeAPI, number>({
       query: (id) => ({
         url: "/api/card/delete-card",
@@ -56,7 +80,9 @@ export const cardApi = createApi({
 export const {
   useGetBoardCardsQuery,
   useLazyGetBoardCardsQuery,
+  useGetCardDetailQuery,
   usePostCreateBoardCardMutation,
+  usePutUpdateDescriptionCardMutation,
   usePutUpdateStepCardMutation,
   useDeleteCardMutation,
 } = cardApi;

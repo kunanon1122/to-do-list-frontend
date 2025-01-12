@@ -18,7 +18,7 @@ const Modal: FC<ModalProps> = ({ children, open, onClose, className }) => {
       <div
         className={clsx(
           className,
-          "bg-core-black-200 px-3 py-5 rounded w-[70vw] md:w-[35vw]"
+          "bg-core-black-200 px-3 py-5 rounded w-full mx-3 md:w-3/5"
         )}
       >
         {children}

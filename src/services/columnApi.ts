@@ -15,6 +15,7 @@ export const boardColumnsApi = createApi({
         method: "GET",
       }),
     }),
+
     postCreateBoardColumn: builder.mutation<ReposeAPI, string>({
       query: (title) => ({
         url: "/api/column/create-column",
@@ -24,6 +25,7 @@ export const boardColumnsApi = createApi({
         },
       }),
     }),
+
     deleteBoardColumn: builder.mutation<ReposeAPI, number>({
       query: (id) => ({
         url: `/api/column/delete-column/${id}`,

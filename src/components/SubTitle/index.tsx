@@ -7,6 +7,7 @@ export type SubTitleProps = {
   ml?: boolean;
   mr?: boolean;
   bold?: boolean;
+  gray?: boolean;
 } & PropsWithChildren;
 
 const SubTitle: FC<SubTitleProps> = ({
@@ -16,13 +17,15 @@ const SubTitle: FC<SubTitleProps> = ({
   ml,
   mr,
   bold,
+  gray,
 }) => {
   const customClass = clsx(
     className,
     "break-words",
     ml && "ml-2",
     mr && "mr-2",
-    bold && "font-bold"
+    bold && "font-bold",
+    gray && "text-gray-500"
   );
 
   switch (level) {
@@ -46,18 +49,18 @@ const SubTitle: FC<SubTitleProps> = ({
       );
     case 4:
       return (
-        <div className={clsx(customClass, "text-sm md:text-base")}>
+        <div className={clsx(customClass, "text-xs md:text-sm lg:text-base")}>
           {children}
         </div>
       );
     case 5:
       return (
-        <div className={clsx(customClass, "text-sm lg:text-base")}>
+        <div className={clsx(customClass, "text-xs lg:text-sm")}>
           {children}
         </div>
       );
     case 6:
-      return <div className={clsx(customClass, "text-sm")}>{children}</div>;
+      return <div className={clsx(customClass, "text-xs ")}>{children}</div>;
 
     default:
       return <>{children}</>;

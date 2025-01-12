@@ -7,6 +7,12 @@
   "modal": {
     "delete": {
       "title": "Are you sure you want to delete this card?"
+    },
+    "detail": {
+      "description": "Description",
+      "add_a_description": "Add a description...",
+      "create_at": "Create At",
+      "update_at": "Update At"
     }
   },
   "more_detail": "More detail",

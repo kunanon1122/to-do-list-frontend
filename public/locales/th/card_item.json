@@ -7,6 +7,12 @@
   "modal": {
     "delete": {
       "title": "คุณแน่ใจว่าต้องการลบการ์ดนี้หรือไม่?"
+    },
+    "detail": {
+      "description": "คำอธิบาย",
+      "add_a_description": "เพิ่มคำอธิบาย...",
+      "create_at": "สร้างเมื่อ",
+      "update_at": "อัพเดทเมื่อ"
     }
   },
   "more_detail": "เพิ่มเติม",

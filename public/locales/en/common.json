@@ -2,5 +2,6 @@
   "hello": "Hello world",
   "delete": "Delete",
   "cancel": "Cancel",
-  "create": "Create"
+  "create": "Create",
+  "update": "Update"
 }
